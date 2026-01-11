@@ -40,12 +40,10 @@ public class OrderDetails {
 
     public OrderDetails(){}
 
-    public OrderDetails(Customer customer, Store store, Double totalPrice, LocalDateTime date, List<OrderItem> orderItems) {
+    public OrderDetails(Customer customer, Store store, Double totalPrice) {
         this.customer = customer;
         this.store = store;
         this.totalPrice = totalPrice;
-        this.date = date;
-        this.orderItems = orderItems;
     }
 
     public Long getId() {

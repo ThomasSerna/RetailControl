@@ -28,11 +28,10 @@ public class Customer {
 
     public Customer(){}
 
-    public Customer(String name, String email, String phone, List<OrderDetails> orders) {
+    public Customer(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.orders = orders;
     }
 
     public Long getId() {
