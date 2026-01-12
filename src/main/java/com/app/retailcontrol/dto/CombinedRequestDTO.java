@@ -2,10 +2,13 @@ package com.app.retailcontrol.dto;
 
 import com.app.retailcontrol.entity.Inventory;
 import com.app.retailcontrol.entity.Product;
+import jakarta.validation.constraints.NotNull;
 
 public class CombinedRequestDTO {
 
+    @NotNull
     private Product product;
+    @NotNull
     private Inventory inventory;
 
     public Product getProduct() {

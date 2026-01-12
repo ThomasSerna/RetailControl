@@ -6,6 +6,7 @@ import com.app.retailcontrol.exception.ResourceAlreadyExistsException;
 import com.app.retailcontrol.exception.ResourceNotFoundException;
 import com.app.retailcontrol.repository.ProductRepository;
 import com.app.retailcontrol.service.ValidateService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseDTO<Object>> addProduct(@RequestBody Product product) {
-        if (validateService.productExists(product)){
+    public ResponseEntity<ApiResponseDTO<Object>> addProduct(@Valid @RequestBody Product product) {
+        if (!validateService.productExists(product)){
             productRepository.save(product);
 
             ApiResponseDTO<Object> apiResponseDTO = new ApiResponseDTO<>(
@@ -59,7 +60,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponseDTO<Object>> updateProduct(@RequestBody Product product) {
+    public ResponseEntity<ApiResponseDTO<Object>> updateProduct(@Valid @RequestBody Product product) {
         productRepository.save(product);
         ApiResponseDTO<Object> apiResponseDTO = new ApiResponseDTO<>(
                 "Product updated successfully",
@@ -102,7 +103,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<Object>> deleteProduct(@PathVariable Long id){
-        if (validateService.productByIdExists(id)) {
+        if (!validateService.productByIdExists(id)) {
             throw new ResourceNotFoundException("Product doesn't exists");
         }
         productRepository.deleteById(id);

@@ -36,7 +36,7 @@ public class ValidateService {
     }
 
     public boolean productExists(Product product){
-        return productRepository.existsByName(product.getName());
+        return productByIdExists(product.getId());
     }
 
     public boolean productByIdExists(Long id){

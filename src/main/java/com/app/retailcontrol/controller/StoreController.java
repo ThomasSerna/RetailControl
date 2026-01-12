@@ -6,6 +6,7 @@ import com.app.retailcontrol.entity.Store;
 import com.app.retailcontrol.repository.StoreRepository;
 import com.app.retailcontrol.service.OrderService;
 import com.app.retailcontrol.service.ValidateService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class StoreController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseDTO<Object>> addStore(@RequestBody Store store) {
+    public ResponseEntity<ApiResponseDTO<Object>> addStore(@Valid @RequestBody Store store) {
         storeRepository.save(store);
         ApiResponseDTO<Object> apiResponseDTO = new ApiResponseDTO<>(
                 "Store saved successfully",
@@ -53,7 +54,7 @@ public class StoreController {
     }
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<ApiResponseDTO<Object>> placeOrder(@RequestBody PlaceOrderRequestDTO placeOrderRequestDTO) {
+    public ResponseEntity<ApiResponseDTO<Object>> placeOrder(@Valid @RequestBody PlaceOrderRequestDTO placeOrderRequestDTO) {
         orderService.saveOrder(placeOrderRequestDTO);
         ApiResponseDTO<Object> apiResponseDTO = new ApiResponseDTO<>(
                 "Order saved successfully",

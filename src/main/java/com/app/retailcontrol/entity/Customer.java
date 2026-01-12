@@ -2,6 +2,7 @@ package com.app.retailcontrol.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -13,13 +14,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Name cannot be emtpy")
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
-    @NotNull(message = "Email cannot be emtpy")
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
-    @NotNull(message = "Phone cannot be emtpy")
+    @NotBlank(message = "Phone cannot be empty")
     private String phone;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)

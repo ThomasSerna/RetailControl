@@ -14,12 +14,10 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @NotNull(message = "Name cannot be empty")
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
-    @NotBlank
-    @NotNull(message = "Address cannot be emtpy")
+    @NotBlank(message = "Name cannot be empty")
     private String address;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)

@@ -1,15 +1,29 @@
 package com.app.retailcontrol.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 public class PlaceOrderRequestDTO {
 
+    @NotNull
     private Long storeId;
+
     private String customerName;
+
+    @NotBlank
     private String customerEmail;
+
+    @NotBlank
     private String customerPhone;
+
     private String datetime;
     private List<PurchaseProductDTO> purchaseProducts;
+
+    @Min(0)
+    @NotNull
     private Double totalPrice;
 
     public Long getStoreId() {

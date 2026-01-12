@@ -5,6 +5,7 @@ import com.app.retailcontrol.dto.ReviewDTO;
 import com.app.retailcontrol.entity.Review;
 import com.app.retailcontrol.repository.ReviewRepository;
 import com.app.retailcontrol.service.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,10 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseDTO<Object>> addReview(@RequestBody Review review) {
+    public ResponseEntity<ApiResponseDTO<Object>> addReview(@Valid @RequestBody Review review) {
         reviewRepository.save(review);
         ApiResponseDTO<Object> apiResponseDTO = new ApiResponseDTO<>(
-                "Product saved successfully",
+                "Reviews saved successfully",
                 "created",
                 201,
                 null

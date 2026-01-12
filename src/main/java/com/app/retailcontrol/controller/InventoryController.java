@@ -9,6 +9,7 @@ import com.app.retailcontrol.exception.ResourceNotFoundException;
 import com.app.retailcontrol.repository.InventoryRepository;
 import com.app.retailcontrol.repository.ProductRepository;
 import com.app.retailcontrol.service.ValidateService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class InventoryController {
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponseDTO<Object>> updateInventory(@RequestBody CombinedRequestDTO combinedRequestDTO){
+    public ResponseEntity<ApiResponseDTO<Object>> updateInventory(@Valid @RequestBody CombinedRequestDTO combinedRequestDTO){
         Product product = combinedRequestDTO.getProduct();
         Inventory inventory = combinedRequestDTO.getInventory();
 
@@ -61,7 +62,7 @@ public class InventoryController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseDTO<Object>> saveInventory(@RequestBody Inventory inventory){
+    public ResponseEntity<ApiResponseDTO<Object>> saveInventory(@Valid @RequestBody Inventory inventory){
         if (!validateService.inventoryExists(inventory)){
             inventoryRepository.save(inventory);
 

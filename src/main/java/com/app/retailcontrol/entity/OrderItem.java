@@ -3,6 +3,7 @@ package com.app.retailcontrol.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class OrderItem {
@@ -14,7 +15,7 @@ public class OrderItem {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "order_id")
-    private OrderDetails orderdetails;
+    private OrderDetails orderDetails;
 
     @ManyToOne
     @JsonBackReference
@@ -22,15 +23,17 @@ public class OrderItem {
     private Product product;
 
     @Min(0)
+    @NotNull
     private Integer quantity;
 
     @Min(0)
+    @NotNull
     private Double price;
 
     public OrderItem(){}
 
     public OrderItem(OrderDetails orderDetails, Product product, Integer quantity, Double price) {
-        this.orderdetails = orderDetails;
+        this.orderDetails = orderDetails;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
@@ -44,12 +47,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public OrderDetails getOrderdetails() {
-        return orderdetails;
+    public OrderDetails getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setOrders(OrderDetails orderdetails) {
-        this.orderdetails = orderdetails;
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public Product getProduct() {

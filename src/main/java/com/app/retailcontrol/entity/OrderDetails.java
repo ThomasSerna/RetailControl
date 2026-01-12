@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,11 +26,12 @@ public class OrderDetails {
     private Store store;
 
     @Min(0)
+    @NotNull
     private Double totalPrice;
 
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "orderdetails", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<OrderItem> orderItems;
 
