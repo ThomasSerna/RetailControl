@@ -14,7 +14,7 @@ public class OrderItem {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "order_id")
-    private OrderDetails orders;
+    private OrderDetails orderdetails;
 
     @ManyToOne
     @JsonBackReference
@@ -29,8 +29,8 @@ public class OrderItem {
 
     public OrderItem(){}
 
-    public OrderItem(OrderDetails orders, Product product, Integer quantity, Double price) {
-        this.orders = orders;
+    public OrderItem(OrderDetails orderDetails, Product product, Integer quantity, Double price) {
+        this.orderdetails = orderDetails;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
@@ -44,12 +44,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public OrderDetails getOrders() {
-        return orders;
+    public OrderDetails getOrderdetails() {
+        return orderdetails;
     }
 
-    public void setOrders(OrderDetails orders) {
-        this.orders = orders;
+    public void setOrders(OrderDetails orderdetails) {
+        this.orderdetails = orderdetails;
     }
 
     public Product getProduct() {

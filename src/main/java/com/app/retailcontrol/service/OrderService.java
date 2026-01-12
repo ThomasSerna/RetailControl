@@ -3,8 +3,10 @@ package com.app.retailcontrol.service;
 import com.app.retailcontrol.dto.PlaceOrderRequestDTO;
 import com.app.retailcontrol.dto.PurchaseProductDTO;
 import com.app.retailcontrol.entity.*;
+import com.app.retailcontrol.exception.ResourceNotFoundException;
 import com.app.retailcontrol.repository.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -25,6 +27,7 @@ public class OrderService {
         this.storeRepository = storeRepository;
     }
 
+    @Transactional
     public void saveOrder(PlaceOrderRequestDTO placeOrderRequestDTO){
         Optional<Customer> optionalCustomer = customerRepository.findByEmail(placeOrderRequestDTO.getCustomerEmail());
         Customer customer;
@@ -42,7 +45,7 @@ public class OrderService {
 
         Store store = storeRepository
                 .findById(placeOrderRequestDTO.getStoreId())
-                .orElseThrow(() -> new RuntimeException("Store not found. Id provided: " + placeOrderRequestDTO.getStoreId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Store not found. Id provided: " + placeOrderRequestDTO.getStoreId()));
 
         OrderDetails orderDetails = new OrderDetails(
                 customer,
@@ -56,7 +59,7 @@ public class OrderService {
         for (PurchaseProductDTO purchaseProductDTO : placeOrderRequestDTO.getPurchaseProducts()){
             inventory = inventoryRepository
                     .findByProduct_IdAndStore_Id(purchaseProductDTO.getId(), store.getId())
-                    .orElseThrow(() -> new RuntimeException("Inventory not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Inventory not found"));
 
             orderItem = new OrderItem(
                     orderDetails,

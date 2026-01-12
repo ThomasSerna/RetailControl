@@ -27,7 +27,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String sku;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference("inventory-product")
     private List<Inventory> inventories;
 

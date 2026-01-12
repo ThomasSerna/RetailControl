@@ -29,7 +29,7 @@ public class OrderDetails {
 
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "orderdetails", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<OrderItem> orderItems;
 

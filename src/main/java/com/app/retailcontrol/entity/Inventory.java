@@ -17,11 +17,12 @@ public class Inventory {
     private Product product;
 
     @ManyToOne
-    @JsonBackReference("inventory-product")
+    @JsonBackReference("inventory-store")
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Min(0)
+    @Column(name = "stock_level")
     private Integer stock;
 
     public Inventory(){}

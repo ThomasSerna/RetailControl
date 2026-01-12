@@ -1,9 +1,8 @@
 package com.app.retailcontrol.controller;
 
 import com.app.retailcontrol.entity.Product;
-import com.app.retailcontrol.repository.InventoryRepository;
 import com.app.retailcontrol.repository.ProductRepository;
-import com.app.retailcontrol.service.ServiceClass;
+import com.app.retailcontrol.service.ValidateService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,19 +14,17 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductRepository productRepository;
-    private final ServiceClass serviceClass;
-    private final InventoryRepository inventoryRepository;
+    private final ValidateService validateService;
 
-    public ProductController(ProductRepository productRepository, ServiceClass serviceClass, InventoryRepository inventoryRepository) {
+    public ProductController(ProductRepository productRepository, ValidateService validateService) {
         this.productRepository = productRepository;
-        this.serviceClass = serviceClass;
-        this.inventoryRepository = inventoryRepository;
+        this.validateService = validateService;
     }
 
     @PostMapping
     public Map<String, String> addProduct(@RequestBody Product product) {
         Map<String, String> apiResponse = new HashMap<>();
-        if (serviceClass.validateProduct(product)){
+        if (validateService.productExists(product)){
             productRepository.save(product);
             apiResponse.put("message", "Product added to the database");
             return apiResponse;
@@ -87,7 +84,7 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public Map<String, String> deleteProduct(@PathVariable Long id){
         Map<String, String> apiResponse = new HashMap<>();
-        if (serviceClass.validateProductId(id)) {
+        if (validateService.productByIdExists(id)) {
             apiResponse.put("message", "The product doesn't exists");
             return apiResponse;
         }
